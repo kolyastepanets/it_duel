@@ -83,7 +83,7 @@ if ARGV[0] == 'bench'
   end
 
   if ARGV[1] == 'dfs'
-    @matrix_7_7.each do |matrix|
+    @matrix_5_5.each do |matrix|
       dfs_board.draw matrix
       puts '3 times DFS'
       Benchmark.benchmark(CAPTION, 7, FORMAT, ">avg:") do |x|
@@ -96,7 +96,7 @@ if ARGV[0] == 'bench'
   end
 
   if ARGV[1] == 'dfs_bottom'
-    @matrix_7_7.each do |matrix|
+    @matrix_5_5.each do |matrix|
       dfs_board.draw matrix
       puts '3 times DFS bottom'
       Benchmark.benchmark(CAPTION, 7, FORMAT, ">avg:") do |x|
@@ -109,7 +109,7 @@ if ARGV[0] == 'bench'
   end
 
   if ARGV[1] == 'big_dfs'
-    @matrix_7_7.each do |matrix|
+    @matrix_5_5.each do |matrix|
       dfs_board.draw matrix
       puts '3 times BiggestDfs'
       Benchmark.benchmark(CAPTION, 7, FORMAT, ">avg:") do |x|
@@ -122,7 +122,7 @@ if ARGV[0] == 'bench'
   end
 
   if ARGV[1] == 'bfs'
-    @matrix_7_7.each do |matrix|
+    @matrix_5_5.each do |matrix|
       dfs_board.draw matrix
       puts '3 times BFS'
       Benchmark.benchmark(CAPTION, 7, FORMAT, ">avg:") do |x|
@@ -135,7 +135,7 @@ if ARGV[0] == 'bench'
   end
 
   if ARGV[1] == 'bfs_bottom'
-    @matrix_7_7.each do |matrix|
+    @matrix_5_5.each do |matrix|
       dfs_board.draw matrix
       puts '3 times ВFS bottom'
       Benchmark.benchmark(CAPTION, 7, FORMAT, ">avg:") do |x|
@@ -148,7 +148,7 @@ if ARGV[0] == 'bench'
   end
 
   if ARGV[1] == 'big_bfs'
-    @matrix_7_7.each do |matrix|
+    @matrix_5_5.each do |matrix|
       dfs_board.draw matrix
       puts '3 times BiggestBfs'
       Benchmark.benchmark(CAPTION, 7, FORMAT, ">avg:") do |x|
@@ -162,36 +162,35 @@ if ARGV[0] == 'bench'
   end
 
 elsif ARGV[0] == 'dfs'
-  matrix = Matrix.columns([[2, 0, 0, 0, 0, 0, 3, 3, 3, 3], [2, 1, 1, 2, 2, 2, 2, 4, 4, 4], [2, 2, 1, 4, 0, 0, 0, 0, 0, 4], [2, 1, 1, 4, 3, 3, 3, 4, 4, 4], [1, 1, 1, 4, 4, 4, 2, 2, 0, 0], [1, 1, 0, 4, 4, 4, 0, 0, 0, 4], [1, 1, 0, 2, 2, 3, 3, 3, 0, 4], [1, 1, 1, 1, 3, 0, 3, 3, 3, 0], [2, 2, 2, 1, 3, 4, 4, 3, 3, 0], [2, 3, 3, 3, 3, 0, 0, 0, 0, 0]])
-  solution = dfs_board.proccess(matrix)
+  matrix = @matrix_5_5.sample
+  dfs_board.draw(matrix)
+  solution = dfs_board.proccess(matrix, ARGV[1] == 'all_steps')
   p solution
-elsif ARGV[0] == 'star'
-  matrix = Matrix.columns([[2, 0, 0, 0, 0, 0, 3, 3, 3, 3], [2, 1, 1, 2, 2, 2, 2, 4, 4, 4], [2, 2, 1, 4, 0, 0, 0, 0, 0, 4], [2, 1, 1, 4, 3, 3, 3, 4, 4, 4], [1, 1, 1, 4, 4, 4, 2, 2, 0, 0], [1, 1, 0, 4, 4, 4, 0, 0, 0, 4], [1, 1, 0, 2, 2, 3, 3, 3, 0, 4], [1, 1, 1, 1, 3, 0, 3, 3, 3, 0], [2, 2, 2, 1, 3, 4, 4, 3, 3, 0], [2, 3, 3, 3, 3, 0, 0, 0, 0, 0]])
-  a_star.draw matrix
-  solution = a_star.proccess(matrix, true)
+elsif ARGV[0] == 'astar'
+  matrix = @matrix_5_5.sample
+  a_star.draw(matrix)
+  solution = a_star.proccess(matrix, ARGV[1] == 'all_steps')
   p solution
 elsif ARGV[0] == 'dfs_bottom'
-  matrix = Matrix.columns([[4, 4, 1, 2, 0, 2, 3], [0, 0, 0, 1, 0, 1, 3], [0, 2, 2, 3, 4, 3, 1], [4, 0, 4, 3, 1, 1, 3], [3, 4, 0, 2, 2, 2, 3], [2, 2, 3, 3, 4, 1, 0], [1, 0, 4, 4, 2, 3, 3]])
-  solution = dfs_bottom.proccess(matrix)
+  matrix = @matrix_5_5.sample
+  a_star.draw(matrix)
+  solution = dfs_bottom.proccess(matrix, ARGV[1] == 'all_steps')
   p solution
 elsif ARGV[0] == 'bfs'
-  matrix = Matrix.columns([[2, 0, 0, 0, 0, 0, 3, 3, 3, 3], [2, 1, 1, 2, 2, 2, 2, 4, 4, 4], [2, 2, 1, 4, 0, 0, 0, 0, 0, 4], [2, 1, 1, 4, 3, 3, 3, 4, 4, 4], [1, 1, 1, 4, 4, 4, 2, 2, 0, 0], [1, 1, 0, 4, 4, 4, 0, 0, 0, 4], [1, 1, 0, 2, 2, 3, 3, 3, 0, 4], [1, 1, 1, 1, 3, 0, 3, 3, 3, 0], [2, 2, 2, 1, 3, 4, 4, 3, 3, 0], [2, 3, 3, 3, 3, 0, 0, 0, 0, 0]])
-  solution = bfs_board.proccess(matrix, true)
+  matrix = @matrix_5_5.sample
+  solution = bfs_board.proccess(matrix, ARGV[1] == 'all_steps')
   p solution
 elsif ARGV[0] == 'big_dfs'
-  @solvables.each do |matrix|
-    solution = big_dfs.proccess(matrix)
-    p solution
-  end
-elsif ARGV[0] == 'big_bfs'
-  matrix = Matrix.columns([[2, 0, 0, 0, 0, 0, 3, 3, 3, 3], [2, 1, 1, 2, 2, 2, 2, 4, 4, 4], [2, 2, 1, 4, 0, 0, 0, 0, 0, 4], [2, 1, 1, 4, 3, 3, 3, 4, 4, 4], [1, 1, 1, 4, 4, 4, 2, 2, 0, 0], [1, 1, 0, 4, 4, 4, 0, 0, 0, 4], [1, 1, 0, 2, 2, 3, 3, 3, 0, 4], [1, 1, 1, 1, 3, 0, 3, 3, 3, 0], [2, 2, 2, 1, 3, 4, 4, 3, 3, 0], [2, 3, 3, 3, 3, 0, 0, 0, 0, 0]])
-  solution = big_bfs.proccess(matrix, true)
+  matrix = @matrix_5_5.sample
+  solution = big_dfs.proccess(matrix, ARGV[1] == 'all_steps')
   p solution
-elsif ARGV[0] == 'draw'
-  matrix = Matrix.columns([[2, 0, 0, 0, 0, 0, 3, 3, 3, 3], [2, 1, 1, 2, 2, 2, 2, 4, 4, 4], [2, 2, 1, 4, 0, 0, 0, 0, 0, 4], [2, 1, 1, 4, 3, 3, 3, 4, 4, 4], [1, 1, 1, 4, 4, 4, 2, 2, 0, 0], [1, 1, 0, 4, 4, 4, 0, 0, 0, 4], [1, 1, 0, 2, 2, 3, 3, 3, 0, 4], [1, 1, 1, 1, 3, 0, 3, 3, 3, 0], [2, 2, 2, 1, 3, 4, 4, 3, 3, 0], [2, 3, 3, 3, 3, 0, 0, 0, 0, 0]])
-  dfs_board.draw(matrix)
+elsif ARGV[0] == 'big_bfs'
+  matrix = @matrix_5_5.sample
+  solution = big_bfs.proccess(matrix, ARGV[1] == 'all_steps')
+  p solution
 elsif ARGV[0] == 'solution'
   matrix = Matrix.columns([[3, 1, 1, 3, 2, 0, 0], [3, 2, 2, 0, 2, 2, 0], [2, 3, 4, 3, 1, 0, 1], [4, 1, 0, 1, 3, 2, 3], [1, 3, 3, 2, 3, 4, 4], [4, 0, 2, 1, 1, 3, 3], [3, 2, 2, 2, 0, 0, 2]])
+  a_star.draw(matrix)
   puts "TEST SOLUTION"
   p "*" * 80
   a_star.tests [[1, 4], [4, 0], [5, 4], [5, 0], [4, 1], [3, 5], [1, 6], [5, 5], [6, 3], [5, 2], [4, 0], [5, 5], [6, 2], [5, 1], [5, 0]], matrix
